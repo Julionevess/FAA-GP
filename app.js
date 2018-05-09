@@ -3,11 +3,26 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var passport = require('passport');
+var session = require('express-session');
+var mysql = require('mysql');
+var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+
+var connection = require('./connection');
+
+connection.openConnection();
+
+connection.readData(function(err, rows, fields){
+  console.log('3. Leitura executada!', JSON.stringify(rows));
+
+connection.closeConnection();
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
